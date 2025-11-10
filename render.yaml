@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: n8n-telegram-bot
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: N8N_HOST
+        fromService:
+          name: n8n-telegram-bot
+          type: web
+          property: host
+      - key: WEBHOOK_URL
+        fromService:
+          name: n8n-telegram-bot
+          type: web
+          property: host
+      - key: N8N_PROTOCOL
+        value: https
+    port: 5678
+    healthCheckPath: /healthz
